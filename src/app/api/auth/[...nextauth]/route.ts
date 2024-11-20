@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
+import { User as NextAuthUser } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaClient } from "@prisma/client";
+import { JWT } from "next-auth/jwt";
 
 const prisma = new PrismaClient();
 
@@ -15,7 +17,7 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: any; user: any }) {
+    async jwt({ token, user }: { token: JWT; user?: NextAuthUser }) {
       if (user) {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },

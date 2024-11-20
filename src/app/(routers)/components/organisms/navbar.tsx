@@ -1,24 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import MainNav from "./main-nav";
 import {  MenuIcon, Search} from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import axios from "axios";
 
 import ModalSignIn from "@/app/(routers)/components/organisms/modal-sigin-form";
 import images from "../../../constant/data-image";
+import Link from "next/link";
 ;
 
 export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
-  const params = useParams();
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  const [cartItemCount, setCartItemCount] = useState(0);
+  const { data: session,  } = useSession();
+  const [cartItemCount] = useState(0);
 
 //   useEffect(() => {
 //     const fetchCartItemCount = async () => {
@@ -109,7 +105,7 @@ export default function Navbar() {
                 <Image src={images.iconAccount} alt="icon" width={18} />
                 <p className="text-xs">Account</p>
               </div>
-              <a href="/shop/cart" className="relative">
+              <Link href="/shop/cart" className="relative">
                 <div className="flex items-center gap-2">
                   <Image src={images.iconCart} alt="icon" width={18} />
                   <p className="text-xs text-neutral-900">Cart</p>
@@ -123,7 +119,7 @@ export default function Navbar() {
                     </div>
                   )}
                 </div>
-              </a>
+              </Link>
             </div>
           ) : (
             <div className="flex items-center space-x-2">

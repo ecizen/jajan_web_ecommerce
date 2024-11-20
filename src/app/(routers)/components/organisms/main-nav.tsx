@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { useParams,  } from "next/navigation";
 import GetCategory from "../../../../../actions/get-category";
 import {
   DropdownMenu,

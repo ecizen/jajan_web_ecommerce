@@ -1,4 +1,4 @@
-const { default: images } = require("./data-image");
+import images from "./data-image";
 
 export const chooseUs = [
     {id:1, title:'original and quality product', description: 'We only offer genuine products from trusted brands. Each of our products has gone through a rigorous verification process to ensure quality and authenticity.', icon: images.verifiedIcon},

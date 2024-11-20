@@ -4,7 +4,7 @@ import GetProduct from "../../../../../actions/get-product";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Currency from "./currency";
-import { Expand, Map, MapIcon } from "lucide-react";
+import { Expand, MapIcon } from "lucide-react";
 
 
 export interface Image {
@@ -44,6 +44,8 @@ const ForYou=() => {
     };
     loadProducts();
   }, []);
+
+  loading && <div>Loading</div>
 
   return (
     <div>

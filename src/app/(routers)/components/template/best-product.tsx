@@ -9,7 +9,7 @@ export default function BestProduct() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const sliderRef = useRef(null);
+
 
   const handleClick = (productId: string) => {
     router.push(`/shop/${productId}`);

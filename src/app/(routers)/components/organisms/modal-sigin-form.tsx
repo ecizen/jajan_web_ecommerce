@@ -28,7 +28,6 @@ const ModalSignIn = () => {
   const router = useRouter();
   const { data: session, status } = useSession() as { data: Session | null; status: string };
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
 
   const handleToggleShowPassword = () => {
     setShowPassword(!showPassword);

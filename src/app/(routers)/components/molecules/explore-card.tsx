@@ -42,17 +42,6 @@ export default function OptionCard({ data, filter, goDetail, }: OptionCardProps)
 
   const sliderRef = useRef<Slider | null>(null);
 
-  const handleNext = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickNext();
-    }
-  };
-
-  const handlePrev = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickPrev();
-    }
-  };
 
   const settings = {
     dots: false,
