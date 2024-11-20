@@ -1,4 +1,4 @@
-// public/api/users/[id].ts
+// public/api/users/[id]/route.ts
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
 
@@ -26,4 +26,3 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     return NextResponse.json({ message: "Internal error" }, { status: 500 });
   }
 }
-
