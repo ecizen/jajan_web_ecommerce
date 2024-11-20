@@ -2,28 +2,24 @@
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
 export async function GET(
-    req: Request,
-    { params }: { params: { id: string } }
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
   ) {
-
-  try {
-    if (!params.id) {
-      return NextResponse.json({ message: "User ID is required" }, { status: 400 });
+    const { id } = await params;
+  
+    try {
+      const user = await db.product.findUnique({
+        where: { id: id }, // Using `id` to fetch a product or perform any logic
+      });
+  
+      if (user) {
+        return NextResponse.json(user); // Returning the product data as JSON
+      } else {
+        return NextResponse.json({ message: "Product not found" }, { status: 404 });
+      }
+    } catch (error) {
+      console.log("[ERROR]", error);
+      return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
-
-    const user = await db.user.findUnique({
-      where: {
-        id: params.id,
-      },
-    });
-
-    if (!user) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
-    }
-
-    return NextResponse.json(user);
-  } catch (error) {
-    console.log("[USER_GET]", error);
-    return NextResponse.json({ message: "Internal error" }, { status: 500 });
   }
-}
+  
