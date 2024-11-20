@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import OptionCard from "../molecules/explore-card";
 import GetProduct from "../../../../../actions/get-product";
 import GetCategory from "../../../../../actions/get-category";
