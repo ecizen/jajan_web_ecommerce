@@ -18,22 +18,32 @@ const authOptions = {
   ],
   callbacks: {
     async jwt({ token, user }: { token: JWT; user?: NextAuthUser }) {
-      if (user?.email) { // Check if user.email is defined
+      if (user?.email) { // Ensure email is defined
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
         if (!existingUser) {
-          const newUser = await prisma.user.create({
-            data: {
-              email: user.email,
-              name: user.name,
-              image: user.image,
-            },
-          });
-          token.id = newUser.id;
+          // Only create the user if email is not null or undefined
+          if (typeof user.email === "string") {
+            const newUser = await prisma.user.create({
+              data: {
+                email: user.email, // Safe because we've checked it's a string
+                name: user.name || "", // Optional fallback for name
+                image: user.image || "", // Optional fallback for image
+              },
+            });
+            token.id = newUser.id;
+          } else {
+            // Handle error if email is not a string (this shouldn't happen if Google auth works properly)
+            console.error("Invalid email received:", user.email);
+            return token;
+          }
         } else {
           token.id = existingUser.id;
         }
+      } else {
+        // Handle case where user.email is undefined or null
+        console.error("No email available for user");
       }
       return token;
     },
