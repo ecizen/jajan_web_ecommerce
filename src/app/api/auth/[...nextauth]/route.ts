@@ -18,7 +18,7 @@ const authOptions = {
   ],
   callbacks: {
     async jwt({ token, user }: { token: JWT; user?: NextAuthUser }) {
-      if (user) {
+      if (user?.email) { // Check if user.email is defined
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
@@ -48,4 +48,3 @@ const authOptions = {
 
 export const GET = NextAuth(authOptions);
 export const POST = NextAuth(authOptions);
-
